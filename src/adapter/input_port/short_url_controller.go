@@ -8,20 +8,20 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-type ShortUrlInfoController struct {
+type ShortUrlController struct {
 	createShortUrlUseCase application.ICreateShortUrlCodeUseCase
 	getOGUrlUseCase       application.IGetOGUrlUseCase
 }
 
 func NewShortUrlInfoController(
 	repository repository.IShortUrlInfoRepository,
-) *ShortUrlInfoController {
-	return &ShortUrlInfoController{
+) *ShortUrlController {
+	return &ShortUrlController{
 		createShortUrlUseCase: application.NewCreateShortUrlUseCase(repository),
 	}
 }
 
-func (c *ShortUrlInfoController) CreateShortUrlCode(ctx *gin.Context) {
+func (c *ShortUrlController) CreateShortUrlCode(ctx *gin.Context) {
 
 	cmd := &application.CreateShortUrlCodeCommand{}
 	if err := ctx.ShouldBind(cmd); err != nil {
@@ -47,7 +47,7 @@ func (c *ShortUrlInfoController) CreateShortUrlCode(ctx *gin.Context) {
 	)
 }
 
-func (c *ShortUrlInfoController) GetOGUrl(ctx *gin.Context) {
+func (c *ShortUrlController) GetOGUrl(ctx *gin.Context) {
 
 	qry := &application.GetOGUrlUseCaseQuery{}
 	if err := ctx.ShouldBind(qry); err != nil {
