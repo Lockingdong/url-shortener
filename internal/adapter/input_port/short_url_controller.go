@@ -1,8 +1,8 @@
 package input_port
 
 import (
-	"UrlShortener/src/application"
-	"UrlShortener/src/domain/repository"
+	"UrlShortener/internal/application"
+	"UrlShortener/internal/domain/repository"
 	"net/http"
 
 	"github.com/gin-gonic/gin"

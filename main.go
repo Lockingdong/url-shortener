@@ -1,8 +1,8 @@
 package main
 
 import (
-	"UrlShortener/src/adapter/input_port"
-	"UrlShortener/src/adapter/output_port"
+	"UrlShortener/internal/adapter/input_port"
+	"UrlShortener/internal/adapter/output_port"
 	"net/http"
 
 	"github.com/gin-gonic/gin"

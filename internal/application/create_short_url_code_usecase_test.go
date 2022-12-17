@@ -1,8 +1,8 @@
 package application
 
 import (
-	"UrlShortener/src/adapter/output_port"
-	"UrlShortener/src/domain/repository"
+	"UrlShortener/internal/adapter/output_port"
+	"UrlShortener/internal/domain/repository"
 	"context"
 	"reflect"
 	"testing"

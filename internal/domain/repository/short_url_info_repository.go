@@ -1,7 +1,7 @@
 package repository
 
 import (
-	"UrlShortener/src/domain/entity"
+	"UrlShortener/internal/domain/entity"
 	"context"
 )
 

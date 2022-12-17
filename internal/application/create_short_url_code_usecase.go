@@ -1,8 +1,8 @@
 package application
 
 import (
-	"UrlShortener/src/domain/entity"
-	"UrlShortener/src/domain/repository"
+	"UrlShortener/internal/domain/entity"
+	"UrlShortener/internal/domain/repository"
 	"context"
 
 	"github.com/google/uuid"
