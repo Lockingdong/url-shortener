@@ -34,7 +34,7 @@ func NewShortUrlInfoMockRepository(
 	}
 }
 
-func (r *ShortUrlInfoMockRepository) CreateShortUrlInfo(
+func (r *ShortUrlInfoMockRepository) SaveShortUrlInfo(
 	_ context.Context,
 	ent *entity.ShortUrlInfo,
 ) error {

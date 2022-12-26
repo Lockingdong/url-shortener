@@ -6,7 +6,7 @@ import (
 )
 
 type ICreateShortUrlCodeRepository interface {
-	CreateShortUrlInfo(ctx context.Context, ent *entity.ShortUrlInfo) error
+	SaveShortUrlInfo(ctx context.Context, ent *entity.ShortUrlInfo) error
 }
 
 type IGetOGUrlRepository interface {

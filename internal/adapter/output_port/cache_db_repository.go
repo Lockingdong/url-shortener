@@ -41,7 +41,7 @@ func NewShortUrlInfoRepository(cacheDBClient *redis.Client) *ShortUrlInfoReposit
 	}
 }
 
-func (r *ShortUrlInfoRepository) CreateShortUrlInfo(ctx context.Context, ent *entity.ShortUrlInfo) error {
+func (r *ShortUrlInfoRepository) SaveShortUrlInfo(ctx context.Context, ent *entity.ShortUrlInfo) error {
 
 	dto := &ShortUrlInfoDTO{
 		ID:           ent.ID,

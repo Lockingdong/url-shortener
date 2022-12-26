@@ -48,7 +48,7 @@ func (u *CreateShortUrlCodeUseCase) Execute(
 		shortUrlCode,
 	)
 
-	if err := u.repository.CreateShortUrlInfo(ctx, shortUrlInfo); err != nil {
+	if err := u.repository.SaveShortUrlInfo(ctx, shortUrlInfo); err != nil {
 		return nil, err
 	}
 
