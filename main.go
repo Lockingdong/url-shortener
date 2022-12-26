@@ -6,11 +6,18 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
+	"github.com/go-redis/redis/v8"
 )
 
 func main() {
-	repository := output_port.NewShortUrlInfoMockRepository(nil)
-	controller := input_port.NewShortUrlInfoController(repository)
+
+	client := redis.NewClient(&redis.Options{
+		Addr: "localhost:6379",
+	})
+
+	repo := output_port.NewShortUrlInfoRepository(client)
+	// repo := output_port.NewShortUrlInfoMockRepository(nil)
+	controller := input_port.NewShortUrlInfoController(repo)
 
 	r := gin.Default()
 	r.GET("/", func(ctx *gin.Context) {
