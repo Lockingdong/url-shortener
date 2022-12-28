@@ -16,7 +16,7 @@ type ICreateUrlCodeUseCase interface {
 }
 
 type CreateUrlCodeCommand struct {
-	Url string `json:"url"`
+	Url string `json:"url" binding:"required,uri"`
 }
 
 type CreateUrlCodeResponse struct {
