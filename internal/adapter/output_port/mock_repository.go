@@ -8,65 +8,65 @@ import (
 	"time"
 )
 
-var _ repository.IShortUrlInfoRepository = (*ShortUrlInfoMockRepository)(nil)
+var _ repository.IUrlInfoRepository = (*UrlInfoMockRepository)(nil)
 
-type ShortUrlInfoMockDTO struct {
-	ID           string
-	OGUrl        string
-	ShortUrlCode string
-	CreatedAt    time.Time
+type UrlInfoMockDTO struct {
+	CreatedAt time.Time
+	ID        string
+	Url       string
+	UrlCode   string
 }
 
-type ShortUrlInfoMockRepository struct {
-	shortUrlInfos map[string]*ShortUrlInfoMockDTO
+type UrlInfoMockRepository struct {
+	urlInfos map[string]*UrlInfoMockDTO
 }
 
-func NewShortUrlInfoMockRepository(
-	shortUrlInfos map[string]*ShortUrlInfoMockDTO,
-) *ShortUrlInfoMockRepository {
+func NewUrlInfoMockRepository(
+	urlInfos map[string]*UrlInfoMockDTO,
+) *UrlInfoMockRepository {
 
-	if shortUrlInfos == nil {
-		shortUrlInfos = map[string]*ShortUrlInfoMockDTO{}
+	if urlInfos == nil {
+		urlInfos = map[string]*UrlInfoMockDTO{}
 	}
 
-	return &ShortUrlInfoMockRepository{
-		shortUrlInfos: shortUrlInfos,
+	return &UrlInfoMockRepository{
+		urlInfos: urlInfos,
 	}
 }
 
-func (r *ShortUrlInfoMockRepository) SaveShortUrlInfo(
+func (r *UrlInfoMockRepository) SaveUrlInfo(
 	_ context.Context,
-	ent *entity.ShortUrlInfo,
+	ent *entity.UrlInfo,
 ) error {
 
-	dto := &ShortUrlInfoMockDTO{
-		ID:           ent.ID,
-		OGUrl:        ent.OGUrl,
-		ShortUrlCode: ent.ShortUrlCode,
-		CreatedAt:    ent.CreatedAt,
+	dto := &UrlInfoMockDTO{
+		ID:        ent.ID,
+		Url:       ent.Url,
+		UrlCode:   ent.UrlCode,
+		CreatedAt: ent.CreatedAt,
 	}
 
-	r.shortUrlInfos[dto.ShortUrlCode] = dto
+	r.urlInfos[dto.UrlCode] = dto
 
 	return nil
 }
 
-func (r *ShortUrlInfoMockRepository) GetShortUrlInfo(
+func (r *UrlInfoMockRepository) GetUrlInfo(
 	_ context.Context,
-	shortUrlCode string,
-) (*entity.ShortUrlInfo, error) {
+	urlCode string,
+) (*entity.UrlInfo, error) {
 
-	if val, ok := r.shortUrlInfos[shortUrlCode]; ok {
+	if val, ok := r.urlInfos[urlCode]; ok {
 
-		ent := &entity.ShortUrlInfo{
-			ID:           val.ID,
-			OGUrl:        val.OGUrl,
-			ShortUrlCode: val.ShortUrlCode,
-			CreatedAt:    val.CreatedAt,
+		ent := &entity.UrlInfo{
+			ID:        val.ID,
+			Url:       val.Url,
+			UrlCode:   val.UrlCode,
+			CreatedAt: val.CreatedAt,
 		}
 
 		return ent, nil
 	}
 
-	return nil, fmt.Errorf("[GetShortUrlInfo] short url code %s not found", shortUrlCode)
+	return nil, fmt.Errorf("[GetUrlInfo] url code %s not found", urlCode)
 }

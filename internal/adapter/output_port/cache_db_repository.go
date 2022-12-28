@@ -11,18 +11,18 @@ import (
 	"github.com/go-redis/redis/v8"
 )
 
-var _ repository.IShortUrlInfoRepository = (*ShortUrlInfoRepository)(nil)
+var _ repository.IUrlInfoRepository = (*UrlInfoRepository)(nil)
 
 const keyPrefix string = "SHORT_URL"
 
-type ShortUrlInfoDTO struct {
-	ID           string    `json:"id"`
-	OGUrl        string    `json:"og_url"`
-	ShortUrlCode string    `json:"short_url_code"`
-	CreatedAt    time.Time `json:"created_at"`
+type UrlInfoDTO struct {
+	CreatedAt time.Time `json:"created_at"`
+	ID        string    `json:"id"`
+	Url       string    `json:"url"`
+	UrlCode   string    `json:"url_code"`
 }
 
-func (d *ShortUrlInfoDTO) ToJsonString() (string, error) {
+func (d *UrlInfoDTO) ToJsonString() (string, error) {
 	jsonBytes, err := json.Marshal(d)
 	if err != nil {
 		return "", err
@@ -31,26 +31,26 @@ func (d *ShortUrlInfoDTO) ToJsonString() (string, error) {
 	return string(jsonBytes), nil
 }
 
-type ShortUrlInfoRepository struct {
+type UrlInfoRepository struct {
 	cacheDBClient *redis.Client
 }
 
-func NewShortUrlInfoRepository(cacheDBClient *redis.Client) *ShortUrlInfoRepository {
-	return &ShortUrlInfoRepository{
+func NewUrlInfoRepository(cacheDBClient *redis.Client) *UrlInfoRepository {
+	return &UrlInfoRepository{
 		cacheDBClient: cacheDBClient,
 	}
 }
 
-func (r *ShortUrlInfoRepository) SaveShortUrlInfo(ctx context.Context, ent *entity.ShortUrlInfo) error {
+func (r *UrlInfoRepository) SaveUrlInfo(ctx context.Context, ent *entity.UrlInfo) error {
 
-	dto := &ShortUrlInfoDTO{
-		ID:           ent.ID,
-		OGUrl:        ent.OGUrl,
-		ShortUrlCode: ent.ShortUrlCode,
-		CreatedAt:    ent.CreatedAt,
+	dto := &UrlInfoDTO{
+		ID:        ent.ID,
+		Url:       ent.Url,
+		UrlCode:   ent.UrlCode,
+		CreatedAt: ent.CreatedAt,
 	}
 
-	key := getShortUrlKey(dto.ShortUrlCode)
+	key := getUrlKey(dto.UrlCode)
 	value, err := dto.ToJsonString()
 	if err != nil {
 		return err
@@ -69,27 +69,27 @@ func (r *ShortUrlInfoRepository) SaveShortUrlInfo(ctx context.Context, ent *enti
 
 }
 
-func (r *ShortUrlInfoRepository) GetShortUrlInfo(ctx context.Context, shortUrlCode string) (*entity.ShortUrlInfo, error) {
+func (r *UrlInfoRepository) GetUrlInfo(ctx context.Context, urlCode string) (*entity.UrlInfo, error) {
 
-	key := getShortUrlKey(shortUrlCode)
+	key := getUrlKey(urlCode)
 	jsonStr, err := r.cacheDBClient.Get(ctx, key).Result()
 	if err != nil {
 		return nil, err
 	}
 
-	var dto ShortUrlInfoDTO
+	var dto UrlInfoDTO
 	if err := json.Unmarshal([]byte(jsonStr), &dto); err != nil {
 		return nil, err
 	}
 
-	return &entity.ShortUrlInfo{
-		ID:           dto.ID,
-		OGUrl:        dto.OGUrl,
-		ShortUrlCode: dto.ShortUrlCode,
-		CreatedAt:    dto.CreatedAt,
+	return &entity.UrlInfo{
+		ID:        dto.ID,
+		Url:       dto.Url,
+		UrlCode:   dto.UrlCode,
+		CreatedAt: dto.CreatedAt,
 	}, nil
 }
 
-func getShortUrlKey(code string) string {
+func getUrlKey(code string) string {
 	return keyPrefix + ":" + code
 }

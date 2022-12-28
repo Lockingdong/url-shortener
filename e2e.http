@@ -1,5 +1,5 @@
 
-### create short url code
+### create url code
 POST http://localhost:8000/api/short_url
 Accept: application/json
 Content-Type: application/json
@@ -8,8 +8,8 @@ Content-Type: application/json
     "og_url": "https://dongstudio.medium.com/"
 }
 
-### get og url
-GET http://localhost:8000/api/short_url?short_url_code=XXXXXX
+### get url
+GET http://localhost:8000/api/short_url?url_code=XXXXXX
 accept: application/json
 
 
