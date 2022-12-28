@@ -82,12 +82,14 @@ func (r *UrlInfoRepository) GetUrlInfo(ctx context.Context, urlCode string) (*en
 		return nil, err
 	}
 
-	return &entity.UrlInfo{
+	ent := entity.NewUrlInfo(&entity.UrlInfoParams{
 		ID:        dto.ID,
 		Url:       dto.Url,
 		UrlCode:   dto.UrlCode,
-		CreatedAt: dto.CreatedAt,
-	}, nil
+		CreatedAt: &dto.CreatedAt,
+	})
+
+	return ent, nil
 }
 
 func getUrlKey(code string) string {

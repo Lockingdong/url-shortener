@@ -5,7 +5,6 @@ import (
 	"UrlShortener/internal/domain/repository"
 	"context"
 
-	"github.com/google/uuid"
 	"github.com/teris-io/shortid"
 )
 
@@ -42,11 +41,10 @@ func (u *CreateUrlCodeUseCase) Execute(
 
 	urlCode := shortid.MustGenerate()
 
-	urlInfo := entity.NewUrlInfo(
-		uuid.NewString(),
-		cmd.Url,
-		urlCode,
-	)
+	urlInfo := entity.NewUrlInfo(&entity.UrlInfoParams{
+		Url:     cmd.Url,
+		UrlCode: urlCode,
+	})
 
 	if err := u.repository.SaveUrlInfo(ctx, urlInfo); err != nil {
 		return nil, err

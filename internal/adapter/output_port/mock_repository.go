@@ -58,12 +58,12 @@ func (r *UrlInfoMockRepository) GetUrlInfo(
 
 	if val, ok := r.urlInfos[urlCode]; ok {
 
-		ent := &entity.UrlInfo{
+		ent := entity.NewUrlInfo(&entity.UrlInfoParams{
 			ID:        val.ID,
 			Url:       val.Url,
 			UrlCode:   val.UrlCode,
-			CreatedAt: val.CreatedAt,
-		}
+			CreatedAt: &val.CreatedAt,
+		})
 
 		return ent, nil
 	}
