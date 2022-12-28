@@ -18,6 +18,7 @@ func NewUrlShortenerController(
 ) *UrlShortenerController {
 	return &UrlShortenerController{
 		createUrlCodeUseCase: application.NewCreateUrlCodeUseCase(repository),
+		getUrlUseCase:        application.NewGetUrlUseCase(repository),
 	}
 }
 
