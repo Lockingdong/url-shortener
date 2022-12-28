@@ -6,6 +6,7 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
+	// "github.com/go-redis/redis/v8"
 )
 
 func main() {
@@ -13,10 +14,12 @@ func main() {
 	// client := redis.NewClient(&redis.Options{
 	// 	Addr: "localhost:6379",
 	// })
+	// if _, err := client.Ping(context.Background()).Result(); err != nil {
+	// 	log.Fatal(err)
+	// }
 	// repo := output_port.NewUrlInfoRepository(client)
 
 	repo := output_port.NewUrlInfoMockRepository(nil)
-
 	controller := input_port.NewUrlShortenerController(repo)
 
 	r := gin.Default()
